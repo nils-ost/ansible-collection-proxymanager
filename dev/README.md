@@ -13,3 +13,46 @@ source ~/.bashrc
 echo -e "source venv/bin/activate\nunset PS1" > .envrc
 direnv allow
 ```
+
+## writing changelogs (fragements)
+
+[Guide on how to write Changelog Fragments](https://docs.ansible.com/projects/ansible/devel/community/development_process.html#changelogs-how-to)
+
+[List of available Changelog Fragement Categories](https://github.com/ansible-community/antsibull-changelog/blob/main/docs/changelogs.md#changelog-fragment-categories)
+
+Linting the written fragments
+
+```
+antsibull-changelog lint
+```
+
+## local testing
+
+  * build collection `ansible-galaxy collection build`
+  * `cd` to your local testing project and "pull in" the collection (this ensures the correct environment for this project is used)
+    * `ansible-galaxy collection install ~/workspace/ansible-collection-proxymanager/nils_ost-proxymanager-1.0.0.tar.gz`
+
+## doing a release
+
+  * set release-version in `galaxy.yml`
+  * create changelog fragement in `changelogs/fragments` with release-version, that contains at least `release_summary` (see example below)
+  * generate changelog `antsibull-changelog release`
+  * commit everything and tag the commit with release-version (e.g. `v1.0.0`)
+  * push to github `git push origin main; git push origin --tags`
+  * build collection `ansible-galaxy collection build`
+
+### changelog fragement for version 1.0.0
+
+`changelogs/fragments/v1.0.0.yml`
+
+```
+release_summary: |
+  This is the first proper release of ``nils_ost.proxymanager`` collection on 2026-01-04.
+  The added Modules and Role were just carried over from other local projects.
+```
+
+## setup to push to ansible-galaxy
+
+In the default ansible config the `token_path` points to `~/.ansible/galaxy_token`, therefore just put the galaxy token of the namespace inside this file, and everything is ready to be pushed.
+
+The full documentation about building and distributing a collection can be found here: [Ansible Collection Distributing](https://docs.ansible.com/projects/ansible/latest/dev_guide/developing_collections_distributing.html)

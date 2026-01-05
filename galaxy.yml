@@ -16,7 +16,7 @@ readme: README.md
 # A list of the collection's content authors. Can be just the name or in the format 'Full Name <email> (url)
 # @nicks:irc/im.site#channel'
 authors:
-  - Nils Ost <@nils-ost>
+  - Nils Ost (@nils-ost)
 
 ### OPTIONAL but strongly recommended
 # A short summary description of the collection
@@ -33,7 +33,12 @@ license_file: LICENSE
 
 # A list of tags you want to associate with the collection for indexing/searching. A tag name has the same character
 # requirements as 'namespace' and 'name'
-tags: ["NginxProxyManager", "npm", "tools", "install", "configure"]
+tags:
+  - NginxProxyManager
+  - npm
+  - tools
+  - install
+  - configure
 
 # Collections that this collection requires to be installed for it to be usable. The key of the dict is the
 # collection label 'namespace.name'. The value is a version range
@@ -60,7 +65,8 @@ issues: https://github.com/nils-ost/ansible-collection-proxymanager/issues
 build_ignore:
   - .gitignore
   - changelogs/.plugin-cache.yaml
-  - venv/
+  - venv
+  - dev
   - .envrc
   - .flake8
   - .pre-commit-config.yaml

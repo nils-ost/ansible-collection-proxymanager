@@ -11,6 +11,8 @@ notesdir: fragments
 output:
   - file: CHANGELOG.rst
     format: rst
+  - file: CHANGELOG.md
+    format: md
 prelude_section_name: release_summary
 prelude_section_title: Release Summary
 sanitize_changelog: true
@@ -31,7 +33,7 @@ sections:
     - Bugfixes
   - - known_issues
     - Known Issues
-title: Nils_Ost.Proxymanager
+title: "nils_ost proxymanager Collection"
 trivial_section_name: trivial
 use_fqcn: true
 vcs: auto

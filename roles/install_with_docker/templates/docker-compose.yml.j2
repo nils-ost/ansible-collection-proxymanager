@@ -1,0 +1,13 @@
+services:
+  proxymanager:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: proxymanager
+    restart: unless-stopped
+    network_mode: "host"
+    environment:
+      DISABLE_IPV6: 'true'
+      INITIAL_ADMIN_EMAIL: {{ proxymanager_user_email }}
+      INITIAL_ADMIN_PASSWORD: {{ proxymanager_user_password }}
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
