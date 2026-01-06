@@ -1,0 +1,66 @@
+---
+- name: fetch API token
+  nils_ost.proxymanager.token:
+    host: "{{ ansible_host }}"
+    user: "{{ proxymanager_user_email }}"
+    password: "{{ proxymanager_user_password }}"
+  delegate_to: localhost
+  register: npm
+
+- name: check certificate
+  nils_ost.proxymanager.certificate:
+    url: "{{ npm.url }}"
+    token: "{{ npm.token }}"
+    domain_name: "{{ proxymanager_cert_domain }}"
+    provider: "domainoffensive"
+    provider_credentials: "{{ proxymanager_do_de_token }}"
+    state: present
+  delegate_to: localhost
+  register: cert
+  when: proxymanager_cert_domain != None
+
+- name: remove deprecated proxys
+  nils_ost.proxymanager.proxy:
+    url: "{{ npm.url }}"
+    token: "{{ npm.token }}"
+    domain_name: "{{ item }}"
+    state: absent
+  delegate_to: localhost
+  loop: "{{ (proxymanager_remove_proxys == None) | ternary([], proxymanager_remove_proxys) }}"
+
+- name: remove deprecated redirections
+  nils_ost.proxymanager.redirection:
+    url: "{{ npm.url }}"
+    token: "{{ npm.token }}"
+    domain_name: "{{ item }}"
+    state: absent
+  delegate_to: localhost
+  loop: "{{ (proxymanager_remove_redirections == None) | ternary([], proxymanager_remove_redirections) }}"
+
+- name: create custom proxys
+  nils_ost.proxymanager.proxy:
+    url: "{{ npm.url }}"
+    token: "{{ npm.token }}"
+    domain_name: "{{ item.key }}"
+    forward_host: "{{ item.value.host }}"
+    forward_port: "{{ item.value.port }}"
+    certificate_id: "{{ (proxymanager_cert_domain == None) | ternary(0, cert.item.id) }}"
+    state: present
+  delegate_to: localhost
+  loop: "{{ (proxymanager_custom_proxys == None) | ternary(dict(), proxymanager_custom_proxys) | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+
+- name: create custom redirections
+  nils_ost.proxymanager.redirection:
+    url: "{{ npm.url }}"
+    token: "{{ npm.token }}"
+    domain_name: "{{ item.key }}"
+    forward_host: "{{ item.value.dest }}"
+    forward_scheme: "{{ item.value.scheme }}"
+    certificate_id: "{{ (proxymanager_cert_domain == None) | ternary(0, cert.item.id) }}"
+    state: present
+  delegate_to: localhost
+  loop: "{{ (proxymanager_custom_redirections == None) | ternary(dict(), proxymanager_custom_redirections) | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"

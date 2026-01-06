@@ -1,0 +1,10 @@
+argument_specs:
+  main:
+    short_description: configures Nginx Proxy Manager with basic capabilities
+    description:
+      - configures Nginx Proxy Manager with some basic options
+      - proxys and redirections can be created, updated and deleted
+      - optionally a certificate can be used for proxys and redirections
+    author:
+      - Nils Ost (@nils-ost)
+    version_added: 1.0.0

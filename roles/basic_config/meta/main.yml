@@ -2,9 +2,9 @@
 dependencies: []
 
 galaxy_info:
-  role_name: install_with_docker
+  role_name: basic_config
   author: Nils Ost (@nils-ost)
-  description: installs Nginx Proxy Manager as a docker container with the help of compose
+  description: configures Nginx Proxy Manager with basic capabilities
   license: GPL-3.0-or-later
   min_ansible_version: 2.13.9
   galaxy_tags:

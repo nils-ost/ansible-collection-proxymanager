@@ -1,0 +1,11 @@
+---
+proxymanager_user_email: admin@some.domain
+proxymanager_user_password: "yourSecre1Pas!word"
+
+proxymanager_cert_domain: null
+proxymanager_do_de_token: null
+
+proxymanager_custom_proxys:
+proxymanager_remove_proxys:
+proxymanager_custom_redirections:
+proxymanager_remove_redirections:
