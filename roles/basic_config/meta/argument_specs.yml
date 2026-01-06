@@ -5,6 +5,7 @@ argument_specs:
       - configures Nginx Proxy Manager with some basic options
       - proxys and redirections can be created, updated and deleted
       - optionally a certificate can be used for proxys and redirections
+      - requires already running proxymanager (e.g. through role ``install_with_docker``)
     author:
       - Nils Ost (@nils-ost)
     version_added: 1.0.0
