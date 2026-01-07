@@ -21,7 +21,7 @@
     remove_orphans: true
     state: stopped
     timeout: 11
-  when: compose_file.changed and not compose_dir.results[0].changed
+  when: compose_file.changed and not compose_dir.changed
 
 - name: start compose service
   community.docker.docker_compose_v2:

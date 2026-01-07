@@ -1,0 +1,38 @@
+ancestor: null
+releases:
+  1.0.0:
+    changes:
+      release_summary:
+        "This is the first proper release of ``nils_ost.proxymanager``
+        collection on 2026-01-07.
+
+        The added Modules and Roles were just carried over from other local projects.
+
+        This, as my first ever ansible collection release, is in memory of my grandfather
+        who passed away today...
+
+        "
+    fragments:
+      - v1.0.0.yml
+    modules:
+      - description: create or delete npm certificate.
+        name: certificate
+        namespace: ""
+      - description: create, update or delete npm proxy.
+        name: proxy
+        namespace: ""
+      - description: create, update or delete npm redirection.
+        name: redirection
+        namespace: ""
+      - description: fetch npm API token (login).
+        name: token
+        namespace: ""
+    objects:
+      role:
+        - description: configures Nginx Proxy Manager with basic capabilities.
+          name: basic_config
+          namespace: null
+        - description: installs Nginx Proxy Manager within docker.
+          name: install_with_docker
+          namespace: null
+    release_date: "2026-01-07"

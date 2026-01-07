@@ -1,0 +1,47 @@
+objects:
+  role:
+    basic_config:
+      description: configures Nginx Proxy Manager with basic capabilities
+      name: basic_config
+      version_added: 1.0.0
+    install_with_docker:
+      description: installs Nginx Proxy Manager within docker
+      name: install_with_docker
+      version_added: 1.0.0
+plugins:
+  become: {}
+  cache: {}
+  callback: {}
+  cliconf: {}
+  connection: {}
+  filter: {}
+  httpapi: {}
+  inventory: {}
+  lookup: {}
+  module:
+    certificate:
+      description: create or delete npm certificate
+      name: certificate
+      namespace: ""
+      version_added: 1.0.0
+    proxy:
+      description: create, update or delete npm proxy
+      name: proxy
+      namespace: ""
+      version_added: 1.0.0
+    redirection:
+      description: create, update or delete npm redirection
+      name: redirection
+      namespace: ""
+      version_added: 1.0.0
+    token:
+      description: fetch npm API token (login)
+      name: token
+      namespace: ""
+      version_added: 1.0.0
+  netconf: {}
+  shell: {}
+  strategy: {}
+  test: {}
+  vars: {}
+version: 1.0.0

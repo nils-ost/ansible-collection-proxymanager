@@ -30,7 +30,7 @@ antsibull-changelog lint
 
   * build collection `ansible-galaxy collection build`
   * `cd` to your local testing project and "pull in" the collection (this ensures the correct environment for this project is used)
-    * `ansible-galaxy collection install ~/workspace/ansible-collection-proxymanager/nils_ost-proxymanager-1.0.0.tar.gz`
+    * `ansible-galaxy collection install --force ~/workspace/ansible-collection-proxymanager/nils_ost-proxymanager-1.0.0.tar.gz`
 
 ## doing a release
 
