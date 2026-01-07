@@ -42,8 +42,8 @@ Name | Description
 
 Name | Description
 --- | ---
-[nils_ost.proxymanager.install_with_docker](docs/nils_ost.proxymanager.install_with_docker_role.md)|installs Nginx Proxy Manager within docker
-[nils_ost.proxymanager.basic_config](docs/nils_ost.proxymanager.basic_config_role.md)|configures Nginx Proxy Manager with basic capabilities
+[nils_ost.proxymanager.install_with_docker](https://github.com/nils-ost/ansible-collection-proxymanager/blob/main/roles/install_with_docker/README.md)|installs Nginx Proxy Manager within docker
+[nils_ost.proxymanager.basic_config](https://github.com/nils-ost/ansible-collection-proxymanager/blob/main/roles/basic_config/README.md)|configures Nginx Proxy Manager with basic capabilities
 
 ## Using this collection
 
