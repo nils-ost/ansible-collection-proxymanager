@@ -1,7 +1,7 @@
 argument_specs:
   main:
     short_description: installs Nginx Proxy Manager within docker
-    description: installs Nginx Proxy Manager as a docker container with the help of compose
+    description: a role for installing Nginx Proxy Manager as a docker container with the help of compose
     author:
       - Nils Ost (@nils-ost)
     version_added: 1.0.0

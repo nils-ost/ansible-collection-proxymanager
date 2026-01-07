@@ -38,6 +38,13 @@ Name | Description
 
 <!--end collection content-->
 
+### Roles
+
+Name | Description
+--- | ---
+[nils_ost.proxymanager.install_with_docker](docs/nils_ost.proxymanager.install_with_docker_role.md)|installs Nginx Proxy Manager within docker
+[nils_ost.proxymanager.basic_config](docs/nils_ost.proxymanager.basic_config_role.md)|configures Nginx Proxy Manager with basic capabilities
+
 ## Using this collection
 
 ```bash

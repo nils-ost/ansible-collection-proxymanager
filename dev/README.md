@@ -40,6 +40,7 @@ antsibull-changelog lint
   * commit everything and tag the commit with release-version (e.g. `v1.0.0`)
   * push to github `git push origin main; git push origin --tags`
   * build collection `ansible-galaxy collection build`
+  * publish collection `ansible-galaxy collection publish nils_ost-proxymanager-1.0.0.tar.gz`
 
 ### changelog fragement for version 1.0.0
 
