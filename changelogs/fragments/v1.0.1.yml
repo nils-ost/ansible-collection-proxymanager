@@ -1,0 +1,3 @@
+---
+bugfixes:
+  - Examples in modules referenced wrong module-name

@@ -245,7 +245,7 @@ Examples
 
     # create redirection
     - name: create npm redirect
-      npm_redirection:
+      nils_ost.proxymanager.redirection:
         url: "{{ npm.url }}"
         token: "{{ npm.token }}"
         domain_name: "some.domain"
@@ -256,7 +256,7 @@ Examples
 
     # change forward_code and preserve_path of the formaly created redirection
     - name: update npm redirect
-      npm_redirection:
+      nils_ost.proxymanager.redirection:
         url: "{{ npm.url }}"
         token: "{{ npm.token }}"
         domain_name: "some.domain"
@@ -269,7 +269,7 @@ Examples
 
     # delete the formaly created and updated redirection
     - name: delete npm redirect
-      npm_redirection:
+      nils_ost.proxymanager.redirection:
         url: "{{ npm.url }}"
         token: "{{ npm.token }}"
         domain_name: "some.domain"

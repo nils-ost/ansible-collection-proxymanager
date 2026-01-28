@@ -151,7 +151,7 @@ Examples
 
     # create a do.de certificate
     - name: create some.domain certificate
-      npm_certificate:
+      nils_ost.proxymanager.certificate:
         url: "{{ npm.url }}"
         token: "{{ npm.token }}"
         domain_name: "some.domain"
@@ -163,7 +163,7 @@ Examples
 
     # check for certificate existance and return item
     - name: check some.domain certificate
-      npm_certificate:
+      nils_ost.proxymanager.certificate:
         url: "{{ npm.url }}"
         token: "{{ npm.token }}"
         domain_name: "some.domain"
@@ -173,7 +173,7 @@ Examples
 
     # delete the formaly created certificate
     - name: delete some.domain certificate
-      npm_certificate:
+      nils_ost.proxymanager.certificate:
         url: "{{ npm.url }}"
         token: "{{ npm.token }}"
         domain_name: "some.domain"

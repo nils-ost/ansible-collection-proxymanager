@@ -100,7 +100,7 @@ options:
 EXAMPLES = r"""
 # create proxy host
 - name: create npm proxy
-  npm_proxy:
+  nils_ost.proxymanager.proxy:
     url: "{{ npm.url }}"
     token: "{{ npm.token }}"
     domain_name: "some.domain"
@@ -112,7 +112,7 @@ EXAMPLES = r"""
 
 # enable caching for formaly created proxy
 - name: update npm proxy
-  npm_proxy:
+  nils_ost.proxymanager.proxy:
     url: "{{ npm.url }}"
     token: "{{ npm.token }}"
     domain_name: "some.domain"
@@ -125,7 +125,7 @@ EXAMPLES = r"""
 
 # delete the formaly created and updated proxy
 - name: delete npm proxy
-  npm_proxy:
+  nils_ost.proxymanager.proxy:
     url: "{{ npm.url }}"
     token: "{{ npm.token }}"
     domain_name: "some.domain"

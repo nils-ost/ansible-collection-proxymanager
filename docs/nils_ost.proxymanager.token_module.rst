@@ -130,7 +130,7 @@ Examples
 
     # fetch a token
     - name: fetch proxymanager API token
-      npm_token:
+      nils_ost.proxymanager.token:
         host: "{{ ansible_host }}"
         user: "{{ root_email }}"
         password: "{{ root_password_long }}"
