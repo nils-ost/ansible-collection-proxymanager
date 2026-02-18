@@ -195,6 +195,116 @@ Parameters
             <tr>
                 <td colspan="1">
                     <div class="ansibleOptionAnchor" id="parameter-"></div>
+                    <b>hsts_enabled</b>
+                    <a class="ansibleOptionLink" href="#parameter-" title="Permalink to this option"></a>
+                    <div style="font-size: small">
+                        <span style="color: purple">boolean</span>
+                    </div>
+                </td>
+                <td>
+                        <ul style="margin: 0; padding: 0"><b>Choices:</b>
+                                    <li><div style="color: blue"><b>no</b>&nbsp;&larr;</div></li>
+                                    <li>yes</li>
+                        </ul>
+                </td>
+                <td>
+                        <div>if HTTP Strict Transport Security should be enabled</div>
+                        <div><b>NOTE:</b> HSTS only works when <em>force_ssl</em> is set to <code>true</code></div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1">
+                    <div class="ansibleOptionAnchor" id="parameter-"></div>
+                    <b>hsts_subdomains</b>
+                    <a class="ansibleOptionLink" href="#parameter-" title="Permalink to this option"></a>
+                    <div style="font-size: small">
+                        <span style="color: purple">boolean</span>
+                    </div>
+                </td>
+                <td>
+                        <ul style="margin: 0; padding: 0"><b>Choices:</b>
+                                    <li><div style="color: blue"><b>no</b>&nbsp;&larr;</div></li>
+                                    <li>yes</li>
+                        </ul>
+                </td>
+                <td>
+                        <div>if HSTS should include subdomains</div>
+                        <div><b>NOTE:</b> Only effective when <em>hsts_enabled</em> and <em>force_ssl</em> are both <code>true</code></div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1">
+                    <div class="ansibleOptionAnchor" id="parameter-"></div>
+                    <b>trust_forwarded_proto</b>
+                    <a class="ansibleOptionLink" href="#parameter-" title="Permalink to this option"></a>
+                    <div style="font-size: small">
+                        <span style="color: purple">boolean</span>
+                    </div>
+                </td>
+                <td>
+                        <ul style="margin: 0; padding: 0"><b>Choices:</b>
+                                    <li><div style="color: blue"><b>no</b>&nbsp;&larr;</div></li>
+                                    <li>yes</li>
+                        </ul>
+                </td>
+                <td>
+                        <div>if X-Forwarded-Proto header should be trusted</div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1">
+                    <div class="ansibleOptionAnchor" id="parameter-"></div>
+                    <b>advanced_config</b>
+                    <a class="ansibleOptionLink" href="#parameter-" title="Permalink to this option"></a>
+                    <div style="font-size: small">
+                        <span style="color: purple">string</span>
+                    </div>
+                </td>
+                <td>
+                        <b>Default:</b><br/><div style="color: blue">""</div>
+                </td>
+                <td>
+                        <div>custom nginx configuration to be added to the proxy host</div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1">
+                    <div class="ansibleOptionAnchor" id="parameter-"></div>
+                    <b>block_exploits</b>
+                    <a class="ansibleOptionLink" href="#parameter-" title="Permalink to this option"></a>
+                    <div style="font-size: small">
+                        <span style="color: purple">boolean</span>
+                    </div>
+                </td>
+                <td>
+                        <ul style="margin: 0; padding: 0"><b>Choices:</b>
+                                    <li><div style="color: blue"><b>no</b>&nbsp;&larr;</div></li>
+                                    <li>yes</li>
+                        </ul>
+                </td>
+                <td>
+                        <div>if common exploits should be blocked</div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1">
+                    <div class="ansibleOptionAnchor" id="parameter-"></div>
+                    <b>access_list_id</b>
+                    <a class="ansibleOptionLink" href="#parameter-" title="Permalink to this option"></a>
+                    <div style="font-size: small">
+                        <span style="color: purple">integer</span>
+                    </div>
+                </td>
+                <td>
+                        <b>Default:</b><br/><div style="color: blue">0</div>
+                </td>
+                <td>
+                        <div>id of npm access list to be used</div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1">
+                    <div class="ansibleOptionAnchor" id="parameter-"></div>
                     <b>state</b>
                     <a class="ansibleOptionLink" href="#parameter-" title="Permalink to this option"></a>
                     <div style="font-size: small">
@@ -276,6 +386,39 @@ Examples
         forward_port: 81
         enable_caching: True
         certificate_id: "{{ some_cert.item.id }}"
+        state: present
+      delegate_to: localhost
+
+    # create proxy with HSTS and security features
+    - name: create secure npm proxy
+      nils_ost.proxymanager.proxy:
+        url: "{{ npm.url }}"
+        token: "{{ npm.token }}"
+        domain_name: "secure.example.com"
+        forward_host: "10.10.2.110"
+        forward_port: 443
+        forward_scheme: https
+        certificate_id: "{{ cert.item.id }}"
+        force_ssl: true
+        hsts_enabled: true
+        hsts_subdomains: true
+        block_exploits: true
+        http2_support: true
+        state: present
+      delegate_to: localhost
+
+    # create proxy with custom nginx configuration
+    - name: create npm proxy with advanced config
+      nils_ost.proxymanager.proxy:
+        url: "{{ npm.url }}"
+        token: "{{ npm.token }}"
+        domain_name: "custom.example.com"
+        forward_host: "192.168.1.100"
+        forward_port: 8080
+        advanced_config: |
+          client_max_body_size 100M;
+          proxy_read_timeout 300s;
+        access_list_id: 1
         state: present
       delegate_to: localhost
 
