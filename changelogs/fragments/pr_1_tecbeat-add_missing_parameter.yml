@@ -1,11 +1,5 @@
 minor_changes:
-  - added missing parameters to proxy module (thanks @tecbeat):
-      - hsts_enabled (bool) - Enable HTTP Strict Transport Security
-      - hsts_subdomains (bool) - Include subdomains in HSTS policy
-      - trust_forwarded_proto (bool) - Trust X-Forwarded-Proto header
-      - advanced_config (str) - Custom nginx configuration snippets
-      - block_exploits (bool) - Enable common exploit blocking
-      - access_list_id (int) - Assign access list to proxy host
+  - Added missing parameters to proxy module (thanks @tecbeat) (hsts_enabled, hsts_subdomains, trust_forwarded_proto, advanced_config, block_exploits, access_list_id)
 
 known_issues:
-  - locations parameter (complex array structure) not yet implemented but documented in TODO.md
+  - Locations parameter (complex array structure) not yet implemented but documented in TODO.md

@@ -81,6 +81,11 @@ for more details.
 
 ## Release notes
 
+> [!WARNING]
+> **Breaking change:** on v2.0.0 the default path of `proxymanager_compose_dir` for role `install_with_docker` changed from `~/proxymanager` to `/opt/proxymanager`  
+> If you previously used the default, consider now to overwrite the variable in your playbook with `~/proxymanager`  
+> Or take down the compose stack in `~/proxymanager` and move the whole directory to `/opt/proxymanager`
+
 See the
 [changelog](CHANGELOG.md).
 

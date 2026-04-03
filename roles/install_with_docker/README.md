@@ -20,7 +20,7 @@ You might want to take a look at [geerlingguy.docker](https://github.com/geerlin
 
 | Variable                   | Type | Default            | Comment                                                         |
 | -------------------------- | ---- | ------------------ | --------------------------------------------------------------- |
-| proxymanager_compose_dir   | str  | ~/proxymanager     | location where compose-file and volume directorys are created   |
+| proxymanager_compose_dir   | str  | /opt/proxymanager  | location where compose-file and volume directorys are created   |
 | proxymanager_auto_upgrade  | bool | false              | whether container image is updated on role run or not           |
 | proxymanager_user_email    | str  | admin@some.domain  | email address configured for login (only applys on initial run) |
 | proxymanager_user_password | str  | yourSecre1Pas!word | password configured for login (only applys on initial run)      |

@@ -1,5 +1,5 @@
 ---
-proxymanager_compose_dir: "~/proxymanager"
+proxymanager_compose_dir: "/opt/proxymanager"
 proxymanager_auto_upgrade: false
 proxymanager_user_email: admin@some.domain
 proxymanager_user_password: "yourSecre1Pas!word"
