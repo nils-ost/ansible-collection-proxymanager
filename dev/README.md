@@ -28,7 +28,7 @@ antsibull-changelog lint
 
 ## local testing
 
-  * build collection `ansible-galaxy collection build`
+  * build collection `rm *.tar.gz; ansible-galaxy collection build`
   * `cd` to your local testing project and "pull in" the collection (this ensures the correct environment for this project is used)
     * `ansible-galaxy collection install --force ~/workspace/ansible-collection-proxymanager/nils_ost-proxymanager-2.0.0.tar.gz`
 
@@ -37,10 +37,12 @@ antsibull-changelog lint
   * set release-version in `galaxy.yml`
   * create changelog fragement in `changelogs/fragments` with release-version, that contains at least `release_summary` (see example below)
   * generate changelog `antsibull-changelog release`
-  * commit everything and tag the commit with release-version (e.g. `v2.0.0`)
+  * commit everything
+  * build collection `rm *.tar.gz; ansible-galaxy collection build`
+  * publish collection `ansible-galaxy collection publish nils_ost-proxymanager-2.0.0.tar.gz --token `
+  * tag the commit with release-version (e.g. `v2.0.0`)
   * push to github `git push origin main; git push origin --tags`
-  * build collection `ansible-galaxy collection build`
-  * publish collection `ansible-galaxy collection publish nils_ost-proxymanager-2.0.0.tar.gz`
+  * create release on GitHub
 
 ### changelog fragement for version 1.0.0
 

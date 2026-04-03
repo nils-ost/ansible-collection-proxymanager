@@ -1,5 +1,0 @@
-minor_changes:
-  - Added missing parameters to proxy module (thanks @tecbeat) (hsts_enabled, hsts_subdomains, trust_forwarded_proto, advanced_config, block_exploits, access_list_id)
-
-known_issues:
-  - Locations parameter (complex array structure) not yet implemented but documented in TODO.md

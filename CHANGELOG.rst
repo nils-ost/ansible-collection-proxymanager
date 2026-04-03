@@ -4,6 +4,35 @@ nils\_ost proxymanager Collection Release Notes
 
 .. contents:: Topics
 
+v2.0.0
+======
+
+Release Summary
+---------------
+
+Merged PR of @tecbeat, that added missing parameters (see below)
+Changed default compose path for docker installations
+
+Minor Changes
+-------------
+
+- Added missing parameters to proxy module (thanks @tecbeat) (hsts_enabled, hsts_subdomains, trust_forwarded_proto, advanced_config, block_exploits, access_list_id)
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- Default path of `proxymanager_compose_dir` for role `install_with_docker` changed from `~/proxymanager` to `/opt/proxymanager`
+
+Bugfixes
+--------
+
+- Examples in modules referenced wrong module-name
+
+Known Issues
+------------
+
+- Locations parameter (complex array structure) not yet implemented but documented in TODO.md
+
 v1.0.0
 ======
 
