@@ -3,6 +3,7 @@
 ## Future Enhancements
 
 ### Add support for locations parameter
+
 - The `locations` parameter in the NPM API is a complex array of objects that allows configuring custom location blocks
 - This feature should allow users to define custom location paths with specific configurations
 - Example structure:
