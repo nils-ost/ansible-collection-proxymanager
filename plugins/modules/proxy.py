@@ -88,6 +88,44 @@ options:
         required: false
         type: bool
         default: false
+    hsts_enabled:
+        description:
+            - if HTTP Strict Transport Security should be enabled
+            - "NOTE: HSTS only works when I(force_ssl) is set to C(true)"
+        required: false
+        type: bool
+        default: false
+    hsts_subdomains:
+        description:
+            - if HSTS should include subdomains
+            - "NOTE: Only effective when I(hsts_enabled) and I(force_ssl) are both C(true)"
+        required: false
+        type: bool
+        default: false
+    trust_forwarded_proto:
+        description:
+            - if X-Forwarded-Proto header should be trusted
+        required: false
+        type: bool
+        default: false
+    advanced_config:
+        description:
+            - custom nginx configuration to be added to the proxy host
+        required: false
+        type: str
+        default: ''
+    block_exploits:
+        description:
+            - if common exploits should be blocked
+        required: false
+        type: bool
+        default: false
+    access_list_id:
+        description:
+            - id of npm access list to be used
+        required: false
+        type: int
+        default: 0
     state:
         description:
             - if a proxy for domain_name should be created or deleted
@@ -123,6 +161,39 @@ EXAMPLES = r"""
     state: present
   delegate_to: localhost
 
+# create proxy with HSTS and security features
+- name: create secure npm proxy
+  nils_ost.proxymanager.proxy:
+    url: "{{ npm.url }}"
+    token: "{{ npm.token }}"
+    domain_name: "secure.example.com"
+    forward_host: "10.10.2.110"
+    forward_port: 443
+    forward_scheme: https
+    certificate_id: "{{ cert.item.id }}"
+    force_ssl: true
+    hsts_enabled: true
+    hsts_subdomains: true
+    block_exploits: true
+    http2_support: true
+    state: present
+  delegate_to: localhost
+
+# create proxy with custom nginx configuration
+- name: create npm proxy with advanced config
+  nils_ost.proxymanager.proxy:
+    url: "{{ npm.url }}"
+    token: "{{ npm.token }}"
+    domain_name: "custom.example.com"
+    forward_host: "192.168.1.100"
+    forward_port: 8080
+    advanced_config: |
+      client_max_body_size 100M;
+      proxy_read_timeout 300s;
+    access_list_id: 1
+    state: present
+  delegate_to: localhost
+
 # delete the formaly created and updated proxy
 - name: delete npm proxy
   nils_ost.proxymanager.proxy:
@@ -143,6 +214,9 @@ item:
 
 
 def data_as_expected(d1, d2):
+    # Note: 'locations' and 'meta' are intentionally excluded from comparison
+    # - locations: complex array structure, future feature (see TODO.md)
+    # - meta: read-only API response field
     keys = [
         "domain_names",
         "forward_scheme",
@@ -153,6 +227,12 @@ def data_as_expected(d1, d2):
         "certificate_id",
         "ssl_forced",
         "http2_support",
+        "hsts_enabled",
+        "hsts_subdomains",
+        "trust_forwarded_proto",
+        "advanced_config",
+        "block_exploits",
+        "access_list_id",
     ]
     for k in keys:
         if k not in d1:
@@ -239,6 +319,12 @@ def run_module():
         certificate_id=dict(type="int", required=False, default=0),
         force_ssl=dict(type="bool", required=False, default=False),
         http2_support=dict(type="bool", required=False, default=False),
+        hsts_enabled=dict(type="bool", required=False, default=False),
+        hsts_subdomains=dict(type="bool", required=False, default=False),
+        trust_forwarded_proto=dict(type="bool", required=False, default=False),
+        advanced_config=dict(type="str", required=False, default=""),
+        block_exploits=dict(type="bool", required=False, default=False),
+        access_list_id=dict(type="int", required=False, default=0),
         state=dict(type="str", default="present", choices=["absent", "present"]),
     )
 
@@ -289,13 +375,14 @@ def run_module():
                 certificate_id=module.params["certificate_id"],
                 ssl_forced=module.params["force_ssl"],
                 http2_support=module.params["http2_support"],
-                hsts_enabled=False,
-                hsts_subdomains=False,
-                advanced_config="",
-                block_exploits=False,
-                access_list_id=0,
-                locations=[],
-                meta={},
+                hsts_enabled=module.params["hsts_enabled"],
+                hsts_subdomains=module.params["hsts_subdomains"],
+                trust_forwarded_proto=module.params["trust_forwarded_proto"],
+                advanced_config=module.params["advanced_config"],
+                block_exploits=module.params["block_exploits"],
+                access_list_id=module.params["access_list_id"],
+                # NOTE: locations and meta are read-only fields returned by API
+                # and should NOT be included in create/update requests
             )
 
             if item is None:
