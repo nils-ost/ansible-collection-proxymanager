@@ -35,6 +35,12 @@ options:
             - the token used for authentication on API-Endpoint
         required: true
         type: str
+    validate_certs:
+        description:
+            - wether to verify the server TLS certificate(s) or not
+        required: false
+        type: bool
+        default: true
     domain_name:
         description:
             - domain to be redirected
@@ -157,14 +163,14 @@ def data_as_expected(d1, d2):
     return True
 
 
-def search(url, token, name):
+def search(url, verify, token, name):
     uri = f"{url}/api/nginx/redirection-hosts"
 
     headers = dict()
     headers["Authorization"] = "Bearer %s" % token
     headers["Content-Type"] = "application/json"
 
-    response = requests.get(uri, headers=headers)
+    response = requests.get(uri, headers=headers, verify=verify)
     if not response.status_code == 200:
         return (False, response.text)
 
@@ -174,40 +180,40 @@ def search(url, token, name):
     return (True, None)
 
 
-def create(url, token, data):
+def create(url, verify, token, data):
     uri = f"{url}/api/nginx/redirection-hosts"
 
     headers = dict()
     headers["Authorization"] = "Bearer %s" % token
     headers["Content-Type"] = "application/json"
 
-    response = requests.post(uri, json=data, headers=headers)
+    response = requests.post(uri, json=data, headers=headers, verify=verify)
     if not response.status_code == 201:
         return (False, response.text)
     return (True, response.json())
 
 
-def update(url, token, item, data):
+def update(url, verify, token, item, data):
     uri = f"{url}/api/nginx/redirection-hosts/{item}"
 
     headers = dict()
     headers["Authorization"] = "Bearer %s" % token
     headers["Content-Type"] = "application/json"
 
-    response = requests.put(uri, json=data, headers=headers)
+    response = requests.put(uri, json=data, headers=headers, verify=verify)
     if not response.status_code == 200:
         return (False, response.text)
     return (True, response.json())
 
 
-def delete(url, token, item):
+def delete(url, verify, token, item):
     uri = f"{url}/api/nginx/redirection-hosts/{item}"
 
     headers = dict()
     headers["Authorization"] = "Bearer %s" % token
     headers["Content-Type"] = "application/json"
 
-    response = requests.delete(uri, headers=headers)
+    response = requests.delete(uri, headers=headers, verify=verify)
     if not response.status_code == 200:
         return (False, response.text)
     return (True, response.json())
@@ -218,6 +224,7 @@ def run_module():
     module_args = dict(
         url=dict(type="str", required=True),
         token=dict(type="str", required=True, no_log=True),
+        validate_certs=dict(type="bool", required=False, default=True),
         domain_name=dict(type="str", required=True),
         forward_host=dict(type="str", required=False, default=None),
         forward_code=dict(
@@ -261,6 +268,7 @@ def run_module():
     try:
         url = module.params["url"]
         token = module.params["token"]
+        verify_tls = module.params["validate_certs"]
 
         if (
             module.params["state"] == "present"
@@ -271,7 +279,7 @@ def run_module():
                 **result,
             )
 
-        success, item = search(url, token, module.params["domain_name"])
+        success, item = search(url, verify_tls, token, module.params["domain_name"])
         if not success:
             module.fail_json(msg=f"error on searching for item: {item}", **result)
 
@@ -294,7 +302,7 @@ def run_module():
 
             if item is None:
                 if not module.check_mode:
-                    success, item = create(url, token, data)
+                    success, item = create(url, verify_tls, token, data)
                     if not success:
                         module.fail_json(
                             msg=f"error on createing new item: {item}",
@@ -316,7 +324,7 @@ def run_module():
                             msg=f"item is already as expected: {item['id']}",
                             **result,
                         )
-                    success, item = update(url, token, item.get("id"), data)
+                    success, item = update(url, verify_tls, token, item.get("id"), data)
                     if not success:
                         module.fail_json(
                             msg=f"error on updateing existing item: {item}",
@@ -337,7 +345,7 @@ def run_module():
             if item is None:
                 module.exit_json(msg="item is already deleted", **result)
             if not module.check_mode:
-                success, item = delete(url, token, item.get("id"))
+                success, item = delete(url, verify_tls, token, item.get("id"))
                 if not success:
                     module.fail_json(msg=f"error on deleteing item: {item}", **result)
                 result["changed"] = True

@@ -1,0 +1,3 @@
+---
+minor_changes:
+  - added parameter `validate_certs` to the modules `token`, `certificate`, `proxy` and `redirection` - to decide wether to verify the server TLS certificate, used for ansible connection, or not

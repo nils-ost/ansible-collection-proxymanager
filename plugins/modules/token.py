@@ -54,6 +54,12 @@ options:
             - password to authenticate on proxymanager instance
         required: true
         type: str
+    validate_certs:
+        description:
+            - wether to verify the server TLS certificate(s) or not
+        required: false
+        type: bool
+        default: true
 """
 
 EXAMPLES = r"""
@@ -89,6 +95,7 @@ def run_module():
         port=dict(type="int", required=False, default=81),
         user=dict(type="str", required=True),
         password=dict(type="str", required=True, no_log=True),
+        validate_certs=dict(type="bool", required=False, default=True)
     )
 
     # seed the result dict in the object
@@ -125,6 +132,7 @@ def run_module():
             result["url"] + "/api/tokens",
             json=data,
             headers=headers,
+            verify=module.params["validate_certs"],
         )
 
         if not response.status_code == 200:
