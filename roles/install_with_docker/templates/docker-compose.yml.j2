@@ -1,6 +1,6 @@
 services:
   proxymanager:
-    image: 'jc21/nginx-proxy-manager:latest'
+    image: 'jc21/nginx-proxy-manager:{{ proxymanager_release }}'
     container_name: proxymanager
     restart: unless-stopped
     network_mode: "host"

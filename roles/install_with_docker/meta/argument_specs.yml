@@ -5,3 +5,30 @@ argument_specs:
     author:
       - Nils Ost (@nils-ost)
     version_added: 1.0.0
+    options:
+      proxymanager_compose_dir:
+        description: location where compose-file and volume directorys are created
+        type: "str"
+        required: false
+        default: "/opt/proxymanager"
+      proxymanager_release:
+        description: container image version tag to be used in compose-file
+        type: "str"
+        required: false
+        default: latest
+        version_added: 2.1.0
+      proxymanager_auto_upgrade:
+        description: whether container image is updated on role run or not
+        type: "bool"
+        required: false
+        default: false
+      proxymanager_user_email:
+        description: email address to be configured for login (only applys on initial run)
+        type: "str"
+        required: false
+        default: admin@some.domain
+      proxymanager_user_password:
+        description: password to be configured for login (only applys on initial run)
+        type: "str"
+        required: false
+        default: "yourSecre1Pas!word"

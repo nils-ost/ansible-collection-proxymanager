@@ -4,9 +4,10 @@
 
 Version added: 1.0.0
 
-- [Synopsis](#synopsis)
-- [Role Variables](#role-variables)
-- [Example](#example)
+- [nils\_ost.proxymanager.install\_with\_docker](#nils_ostproxymanagerinstall_with_docker)
+  - [Synopsis](#synopsis)
+  - [Role Variables](#role-variables)
+  - [Example](#example)
 
 ## Synopsis
 
@@ -18,12 +19,13 @@ You might want to take a look at [geerlingguy.docker](https://github.com/geerlin
 
 ## Role Variables
 
-| Variable                   | Type | Default            | Comment                                                         |
-| -------------------------- | ---- | ------------------ | --------------------------------------------------------------- |
-| proxymanager_compose_dir   | str  | /opt/proxymanager  | location where compose-file and volume directorys are created   |
-| proxymanager_auto_upgrade  | bool | false              | whether container image is updated on role run or not           |
-| proxymanager_user_email    | str  | admin@some.domain  | email address configured for login (only applys on initial run) |
-| proxymanager_user_password | str  | yourSecre1Pas!word | password configured for login (only applys on initial run)      |
+| Variable                   | Type | Default            | Comment                                                               |
+| -------------------------- | ---- | ------------------ | --------------------------------------------------------------------- |
+| proxymanager_compose_dir   | str  | /opt/proxymanager  | location where compose-file and volume directorys are created         |
+| proxymanager_release       | str  | latest             | container image version tag to be used in compose-file                |
+| proxymanager_auto_upgrade  | bool | false              | whether container image is updated on role run or not                 |
+| proxymanager_user_email    | str  | admin@some.domain  | email address to be configured for login (only applys on initial run) |
+| proxymanager_user_password | str  | yourSecre1Pas!word | password to be configured for login (only applys on initial run)      |
 
 ## Example
 

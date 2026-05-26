@@ -1,0 +1,3 @@
+---
+minor_changes:
+  - added parameter `proxymanager_release` to role `install_with_docker` to specify container image version tag to be used in compose-file (defaults to `latest`)
